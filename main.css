@@ -17,15 +17,16 @@ h2 {
     font-size: 22pt;
     font-weight: 900;
 }
-h3 {
-	text-align: center;
-	font-size: 20pt;
-}
-h4 {
-	font-size: 18pt;
-}
 * {
     box-sizing: border-box;
+}
+
+a {
+    color: #eeeeee;
+}
+a:hover {
+    color: #26e2c0;
+    text-decoration: none;
 }
 
 /* https://www.w3schools.com/css/css_navbar.asp start */
@@ -43,28 +44,17 @@ h4 {
 }
 .navbar li a {
     display: block;
-    color: #eeeeee;
     margin: 0 30px 0 30px;
-    text-decoration: none;
     font-size: 20pt;
-}
-.navbar li a:hover {
-    color: #26e2c0;
 }
 /* https://www.w3schools.com/css/css_navbar.asp end */
 
-.placeholder {
-    color: #454545;
-}
-
-.right {
-    right: 0;
-}
-
-.left {
-    left: 0;
-}
-
 .gap {
     margin-top: 5%;
+}
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
 }
