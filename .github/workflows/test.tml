@@ -1,0 +1,68 @@
+name: "Build and deploy to GitHub Pages"
+
+inputs:
+  name:
+    description: 'Artifact name'
+    required: false
+    default: 'github-pages'
+  path:
+    description: "Path of the directory containing the static assets."
+    required: true
+    default: "build/"
+  retention-days:
+    description: "Duration after which artifact will expire in days."
+    required: false
+    default: "1"
+
+outputs:
+  artifact_id:
+    description: "The ID of the artifact that was uploaded."
+    value: ${{ steps.upload-artifact.outputs.artifact-id }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: pnpm install
+        run: pnpm install
+
+      - name: pnpm build
+        run: pnpm build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bday_build
+          path: build/
+
+runs:
+  using: composite
+  steps:
+    - name: Archive artifact
+      shell: sh
+      run: |
+        echo ::group::Archive artifact
+        tar \
+          --dereference --hard-dereference \
+          --directory "$INPUT_PATH" \
+          -cvf "$RUNNER_TEMP/artifact.tar" \
+          --exclude=.git \
+          --exclude=.github \
+          .
+        echo ::endgroup::
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+
+    - name: Upload artifact
+      id: upload-artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.name }}
+        path: ${{ runner.temp }}/artifact.tar
+        retention-days: ${{ inputs.retention-days }}
+        if-no-files-found: error
