@@ -33,7 +33,7 @@
 </svelte:head>
 
 <section class="tw-flex tw-h-screen tw-flex-col tw-items-center tw-justify-around">
-	<h1 class="tw-absolute tw-top-1/4 tw-text-5xl {activeProps.headerStyle}">
+	<h1 class="tw-absolute tw-top-1/4 tw-px-2 tw-text-5xl {activeProps.headerStyle}">
 		{activeProps.headerText}
 	</h1>
 
