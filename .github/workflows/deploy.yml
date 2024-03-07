@@ -22,7 +22,7 @@ jobs:
 
             - uses: actions/upload-artifact@v4
               with:
-                  name: bday_build
+                  name: github-pages
                   path: build/
 
     # Deploy job
